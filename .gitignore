@@ -1,0 +1,12 @@
+/.venv/
+/corrida-local/
+/__pycache__/
+*.pyc
+*.descarga
+/datos/*
+!/datos/README.md
+/Grupo4-TA-Final.docx
+/Grupo4-TA-Final.pdf
+/Grupo4-TA-Exposicion.pptx
+.ipynb_checkpoints/
+~$*

@@ -1,0 +1,416 @@
+{
+  "audit": {
+    "rows_csv": 13587,
+    "cols_csv": 129,
+    "age_99_in_domain": 2,
+    "age_above_99_in_domain": 2,
+    "residents_age14_region1": 10756,
+    "invalid_target_in_scope": 557,
+    "n": 10199,
+    "households": 4313,
+    "missing": {
+      "C208": 0,
+      "C207": 0,
+      "C366": 0,
+      "C375_1": 0,
+      "C375_2": 0,
+      "C375_3": 0,
+      "C375_4": 0,
+      "C375_5": 0,
+      "C375_6": 0,
+      "C376": 0,
+      "C377": 307
+    },
+    "geo_cardinality": {
+      "REGION": 1,
+      "ESTRATO": 1
+    }
+  },
+  "labels": [
+    "Ocupado",
+    "Desocupado abierto",
+    "Desocupado oculto",
+    "Inactivo pleno"
+  ],
+  "seed": 42,
+  "sha256": "be4b7725f69681599a50e96f23ae27e4c7c30fbec2289e2f760d4c4e5644b6d0",
+  "support": {
+    "total": [
+      6111,
+      475,
+      152,
+      3461
+    ],
+    "train": [
+      4893,
+      382,
+      124,
+      2806
+    ],
+    "test": [
+      1218,
+      93,
+      28,
+      655
+    ]
+  },
+  "train_households": 3452,
+  "test_households": 861,
+  "cv_configurations": 38,
+  "best_by_balance": {
+    "Logística": [
+      {
+        "model": "Logística",
+        "balance": false,
+        "params": {
+          "C": 0.1
+        },
+        "cv_weighted": 0.6078076592063171,
+        "cv_weighted_sd": 0.015867130434693334,
+        "cv_macro": 0.3036913716959341
+      },
+      {
+        "model": "Logística",
+        "balance": true,
+        "params": {
+          "C": 10
+        },
+        "cv_weighted": 0.4095873364908792,
+        "cv_weighted_sd": 0.019143200006004533,
+        "cv_macro": 0.2544662908853179
+      }
+    ],
+    "Random Forest": [
+      {
+        "model": "Random Forest",
+        "balance": false,
+        "params": {
+          "max_depth": 12,
+          "min_samples_leaf": 5,
+          "n_estimators": 300
+        },
+        "cv_weighted": 0.6903385018187619,
+        "cv_weighted_sd": 0.017128719574377914,
+        "cv_macro": 0.35463452151311653
+      },
+      {
+        "model": "Random Forest",
+        "balance": true,
+        "params": {
+          "max_depth": 12,
+          "min_samples_leaf": 5,
+          "n_estimators": 150
+        },
+        "cv_weighted": 0.5837485723487222,
+        "cv_weighted_sd": 0.0061620925446480785,
+        "cv_macro": 0.3479473498328305
+      }
+    ],
+    "XGBoost": [
+      {
+        "model": "XGBoost",
+        "balance": false,
+        "params": {
+          "learning_rate": 0.05,
+          "max_depth": 4,
+          "n_estimators": 200
+        },
+        "cv_weighted": 0.7092987720349878,
+        "cv_weighted_sd": 0.01587626211634456,
+        "cv_macro": 0.3676707666519839
+      },
+      {
+        "model": "XGBoost",
+        "balance": true,
+        "params": {
+          "learning_rate": 0.1,
+          "max_depth": 4,
+          "n_estimators": 200
+        },
+        "cv_weighted": 0.5972891217384662,
+        "cv_weighted_sd": 0.01926636134093178,
+        "cv_macro": 0.3586945009039424
+      }
+    ]
+  },
+  "test": {
+    "Clase mayoritaria": {
+      "f1_weighted": 0.4632590174008951,
+      "f1_macro": 0.18960149439601495,
+      "recall": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "confusion": [
+        [
+          1218,
+          0,
+          0,
+          0
+        ],
+        [
+          93,
+          0,
+          0,
+          0
+        ],
+        [
+          28,
+          0,
+          0,
+          0
+        ],
+        [
+          655,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "Logística": {
+      "f1_weighted": 0.6147710177598783,
+      "f1_macro": 0.30466901490855935,
+      "recall": [
+        0.8661740558292282,
+        0.0,
+        0.0,
+        0.3816793893129771
+      ],
+      "confusion": [
+        [
+          1055,
+          0,
+          0,
+          163
+        ],
+        [
+          85,
+          0,
+          0,
+          8
+        ],
+        [
+          15,
+          0,
+          0,
+          13
+        ],
+        [
+          405,
+          0,
+          0,
+          250
+        ]
+      ],
+      "model": "Logística",
+      "balance": false,
+      "params": {
+        "C": 0.1
+      },
+      "cv_weighted": 0.6078076592063171,
+      "cv_weighted_sd": 0.015867130434693334,
+      "cv_macro": 0.3036913716959341,
+      "fit_seconds": 0.20248829998308793,
+      "prediction_seconds": 0.007452899997588247
+    },
+    "Random Forest": {
+      "f1_weighted": 0.6993392682051804,
+      "f1_macro": 0.3560514544659158,
+      "recall": [
+        0.9384236453201971,
+        0.0,
+        0.0,
+        0.49770992366412214
+      ],
+      "confusion": [
+        [
+          1143,
+          0,
+          0,
+          75
+        ],
+        [
+          83,
+          0,
+          0,
+          10
+        ],
+        [
+          15,
+          0,
+          0,
+          13
+        ],
+        [
+          329,
+          0,
+          0,
+          326
+        ]
+      ],
+      "model": "Random Forest",
+      "balance": false,
+      "params": {
+        "max_depth": 12,
+        "min_samples_leaf": 5,
+        "n_estimators": 300
+      },
+      "cv_weighted": 0.6903385018187619,
+      "cv_weighted_sd": 0.017128719574377914,
+      "cv_macro": 0.35463452151311653,
+      "fit_seconds": 1.233653500006767,
+      "prediction_seconds": 0.07348780002212152
+    },
+    "XGBoost": {
+      "f1_weighted": 0.7184526982949896,
+      "f1_macro": 0.36988461891154406,
+      "recall": [
+        0.8949096880131363,
+        0.0,
+        0.0,
+        0.6106870229007634
+      ],
+      "confusion": [
+        [
+          1090,
+          0,
+          0,
+          128
+        ],
+        [
+          74,
+          0,
+          0,
+          19
+        ],
+        [
+          11,
+          0,
+          0,
+          17
+        ],
+        [
+          255,
+          0,
+          0,
+          400
+        ]
+      ],
+      "model": "XGBoost",
+      "balance": false,
+      "params": {
+        "learning_rate": 0.05,
+        "max_depth": 4,
+        "n_estimators": 200
+      },
+      "cv_weighted": 0.7092987720349878,
+      "cv_weighted_sd": 0.01587626211634456,
+      "cv_macro": 0.3676707666519839,
+      "fit_seconds": 0.625379899982363,
+      "prediction_seconds": 0.03218030001153238
+    }
+  },
+  "audit_model": "XGBoost",
+  "importance": [
+    {
+      "variable": "C208",
+      "mean": 0.1860373177214982,
+      "sd": 0.008166715378904534
+    },
+    {
+      "variable": "C207",
+      "mean": 0.010474530357316322,
+      "sd": 0.003758609296998996
+    },
+    {
+      "variable": "C366",
+      "mean": 0.004748473597431624,
+      "sd": 0.003609197096406998
+    },
+    {
+      "variable": "C375_6",
+      "mean": 0.002389667715131405,
+      "sd": 0.0008946166941453067
+    },
+    {
+      "variable": "C375_5",
+      "mean": 0.0020365436808795325,
+      "sd": 0.0011203412030663233
+    },
+    {
+      "variable": "C375_1",
+      "mean": 0.0010210290180995656,
+      "sd": 0.0012896051668792048
+    },
+    {
+      "variable": "C375_3",
+      "mean": 0.00033518311100833774,
+      "sd": 0.0009508675505945327
+    },
+    {
+      "variable": "C375_4",
+      "mean": 5.197990392799371e-05,
+      "sd": 0.0002404015432249113
+    },
+    {
+      "variable": "C376",
+      "mean": 4.873585532176132e-08,
+      "sd": 0.00036721462998608585
+    },
+    {
+      "variable": "C375_2",
+      "mean": -0.0006901078997138876,
+      "sd": 0.0006950866831300562
+    },
+    {
+      "variable": "C377",
+      "mean": -0.0012689675370495701,
+      "sd": 0.001283596789007792
+    }
+  ],
+  "subgroup": {
+    "1": {
+      "n": 941,
+      "f1_macro": 0.39807003898417126,
+      "support": [
+        647,
+        40,
+        10,
+        244
+      ]
+    },
+    "2": {
+      "n": 1053,
+      "f1_macro": 0.3456859070619821,
+      "support": [
+        571,
+        53,
+        18,
+        411
+      ]
+    }
+  },
+  "bootstrap": {
+    "Random Forest": [
+      0.0650586528024334,
+      0.1026581432321075
+    ],
+    "XGBoost": [
+      0.08423688148551399,
+      0.12224529744440166
+    ]
+  },
+  "environment": {
+    "python": "3.14.4",
+    "pandas": "2.3.3",
+    "sklearn": "1.7.2",
+    "xgboost": "3.1.3",
+    "numpy": "2.5.4",
+    "matplotlib": "3.10.8",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "total_seconds": 106.58799239998916
+}
