@@ -173,21 +173,25 @@ def evaluate(path, out):
     baseline = DummyClassifier(strategy="most_frequent").fit(X_train, y_train)
     predictions = {"Clase mayoritaria": baseline.predict(X_test)}
     test_metrics = {"Clase mayoritaria": metrics(y_test, predictions["Clase mayoritaria"])}
-    runs, best_by_balance, trained = [], {}, {}
+    runs, best_by_balance, trained, score_diagnostics = [], {}, {}, {}
     for name, (estimator, grid) in FAMILIES.items():
         candidates = []
         for params in ParameterGrid(grid):
             for balance in (False, True):
-                folds_weighted, folds_macro = [], []
+                folds_weighted, folds_macro, folds_recall = [], [], []
                 for fit, validation in folds:
                     model = fit_model(estimator, params, balance, X_train.iloc[fit], y_train[fit])
                     val_pred = model.predict(X_train.iloc[validation])
                     folds_weighted.append(f1(y_train[validation], val_pred, "weighted"))
                     folds_macro.append(f1(y_train[validation], val_pred, "macro"))
+                    folds_recall.append(recall_score(y_train[validation], val_pred, labels=CLASSES,
+                                                     average=None, zero_division=0))
                 row = {"model": name, "balance": balance, "params": params,
                        "cv_weighted": float(np.mean(folds_weighted)),
                        "cv_weighted_sd": float(np.std(folds_weighted, ddof=1)),
-                       "cv_macro": float(np.mean(folds_macro))}
+                       "cv_macro": float(np.mean(folds_macro)),
+                       **{f"cv_recall_{k + 1}": float(value)
+                          for k, value in enumerate(np.mean(folds_recall, axis=0))}}
                 candidates.append(row)
         rank = lambda row: (row["cv_weighted"], row["cv_macro"])
         chosen = max(candidates, key=rank)
@@ -203,6 +207,13 @@ def evaluate(path, out):
         if not np.allclose(probabilities.sum(axis=1), 1.0):
             raise ValueError("Probabilidades multiclase inválidas.")
         predictions[name] = trained[name].classes_[probabilities.argmax(axis=1)]
+        ranks = np.argsort(-probabilities, axis=1, kind="stable")
+        score_diagnostics[name] = [
+            {"support": int((y_test == k).sum()),
+             "mean_scores": probabilities[y_test == k].mean(axis=0).tolist(),
+             "top2_hits": int(np.any(ranks[y_test == k, :2] == k, axis=1).sum())}
+            for k in CLASSES
+        ]
         test_metrics[name] = dict(metrics(y_test, predictions[name]), **chosen,
                                   fit_seconds=elapsed_fit, prediction_seconds=elapsed_predict)
         print(name, chosen, flush=True)
@@ -228,6 +239,7 @@ def evaluate(path, out):
         "cv_configurations": len(runs), "best_by_balance": best_by_balance, "test": test_metrics,
         "audit_model": chosen_for_audit, "importance": importance_table.to_dict(orient="records"),
         "subgroup": subgroup, "bootstrap": grouped_bootstrap(y_test, predictions, groups_test),
+        "score_diagnostics": score_diagnostics,
         "environment": {"python": platform.python_version(), "pandas": pd.__version__,
                         "sklearn": sklearn.__version__, "xgboost": xgboost.__version__,
                         "numpy": np.__version__, "matplotlib": matplotlib.__version__,
