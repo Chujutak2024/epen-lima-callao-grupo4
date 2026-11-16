@@ -1,5 +1,6 @@
 /.venv/
 /corrida-local/
+/resultados_notebook/
 /__pycache__/
 *.pyc
 *.descarga

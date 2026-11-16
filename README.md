@@ -6,7 +6,9 @@ Proyecto del Grupo 4 para el curso Inteligencia Artificial (1INF24). Compara reg
 
 El [cuaderno de pandas del proyecto](01_Exploracion_Estudio_EPEN.ipynb) usa DataFrames para revisar dimensiones, tipos, nulos, resúmenes y frecuencia de etiquetas. Los notebooks `Ejemplo1_Preprocesamiento_solucionado.ipynb` y `Lab_Guiado_MLP_Forest_Classification.ipynb` sirvieron de referencia. Son material externo del curso y su descarga es opcional para reproducir el proyecto. La codificación de variables nominales se ajusta dentro de cada pliegue y la separación estratificada agrupa por hogar.
 
-`experimento.py` concentra la carga, preparación, validación y evaluación. El cuaderno importa esa preparación para que los filtros de la exploración sean los mismos que usa el experimento. Consulta [los archivos oficiales y su propósito](datos/README.md).
+`experimento.py` permite ejecutar la carga, preparación, validación y evaluación desde la terminal. El cuaderno contiene el mismo procedimiento para ejecutarlo en Colab con el CSV oficial. Consulta [los archivos oficiales y su propósito](datos/README.md).
+
+Para probar el cuaderno en Colab, abre el `.ipynb`, sube `Trim Ene-Feb-Mar26.csv` al panel **Archivos** y ejecuta todas las celdas. El cuaderno genera sus salidas agregadas en `resultados_notebook/`.
 
 ## Reproducir el experimento
 
